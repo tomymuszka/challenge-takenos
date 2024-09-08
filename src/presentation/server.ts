@@ -20,13 +20,11 @@ export class Server {
     this.port = port;
     this.routes = routes;
 
-    // Cargar y parsear el archivo de especificaciones Swagger
-    const swaggerFilePath = path.join(__dirname, "../config/swagger.yaml"); // Ajusta la ruta según la ubicación del archivo
+    const swaggerFilePath = path.join(__dirname, "../config/swagger.yaml");
     const swaggerDocument = yaml.parse(
       fs.readFileSync(swaggerFilePath, "utf8")
     );
 
-    // Agregar ruta Swagger
     this.app.use(
       "/api-docs",
       swaggerUi.serve,
@@ -49,9 +47,6 @@ export class Server {
     // Iniciar servidor
     this.app.listen(this.port, () => {
       console.log(`This app is running on port ${this.port}`);
-      console.log(
-        `Swagger docs available at http://localhost:${this.port}/api-docs`
-      );
     });
   }
 }
