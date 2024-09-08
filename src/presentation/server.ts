@@ -41,10 +41,8 @@ export class Server {
       })
     );
 
-    // Usar las rutas definidas
     this.app.use(this.routes);
 
-    // Iniciar servidor
     this.app.listen(this.port, () => {
       console.log(`This app is running on port ${this.port}`);
     });
