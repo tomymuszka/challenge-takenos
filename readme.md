@@ -28,6 +28,10 @@ Esta es una solucion creada para recibir archivos csv, analizar su contenido y l
 4. Ejecuta `docker compose up -d`
 5. Corre `npm run dev` para iniciar el proyecto en modo desarrollo.
 
+## Documentacion:
+
+Se puede acceder a la documentacion completa del proyecto visitando el endpoint `/api-docs`
+
 ## :gear: Tecnologías utilizadas
 
 - Node.js
