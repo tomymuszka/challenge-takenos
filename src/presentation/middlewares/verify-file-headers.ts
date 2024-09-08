@@ -29,7 +29,6 @@ export const validateCSVMiddleware = (
   csvStream
     .on("headers", (headerRow) => {
       headers.push(...headerRow);
-      console.log("Encabezados encontrados:", headers);
     })
     .on("end", () => {
       if (headers.length === 0) {
@@ -45,10 +44,7 @@ export const validateCSVMiddleware = (
           .send(`Faltan los siguientes headers: ${missingHeaders.join(", ")}`);
       }
 
-      console.log("Previo controlador");
       next();
     })
-    .on("data", (row) => {
-      console.log("Fila procesada:", row);
-    });
+    .on("data", (row) => {});
 };

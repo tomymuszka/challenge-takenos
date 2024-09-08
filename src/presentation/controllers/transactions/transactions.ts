@@ -15,8 +15,6 @@ export class TransactionsController {
   ) {}
 
   public createTransaction = async (req: Request, res: Response) => {
-    console.log("controlador");
-
     const file = req.files!.file as UploadedFile;
 
     try {
