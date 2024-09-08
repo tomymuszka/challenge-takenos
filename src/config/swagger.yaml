@@ -1,0 +1,201 @@
+openapi: 3.0.0
+info:
+  title: Backend Challenge - Takenos
+  description: Documentation for the challenge of takenos
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local server
+paths:
+  /transactions:
+    post:
+      summary: Upload and process a transaction CSV file
+      description: |
+        Uploads a CSV file containing transaction data with the headers: 
+        [transaction_id, date, user_id, merchant, amount] and processes it.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The CSV file to upload.
+              required:
+                - file
+        required: true
+      responses:
+        "200":
+          description: Transaction successfully uploaded and processed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "The transaction was uploaded successfully. See the analysis with the ID: 123"
+        "400":
+          description: Invalid file or processing error
+          content:
+            application/json:
+              schema:
+                type: string
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+  /auth/signup:
+    post:
+      summary: Register a new user
+      description: Registers a new user with an email and password.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+              required:
+                - email
+                - password
+        required: true
+      responses:
+        "201":
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  email:
+                    type: string
+                    format: email
+                  token:
+                    type: string
+        "400":
+          description: Missing email or password
+          content:
+            application/json:
+              schema:
+                type: string
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+  /auth/login:
+    post:
+      summary: Log in a user
+      description: Authenticates a user with an email and password and returns a token.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+              required:
+                - email
+                - password
+        required: true
+      responses:
+        "200":
+          description: User authenticated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  email:
+                    type: string
+                    format: email
+                  token:
+                    type: string
+        "400":
+          description: Email or password is missing
+          content:
+            application/json:
+              schema:
+                type: string
+        "401":
+          description: Invalid email or password
+          content:
+            application/json:
+              schema:
+                type: string
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+  /analysis/{id}:
+    get:
+      summary: Get analysis by ID
+      description: Retrieves the analysis by the ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Analysis found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  volumeTransactionsDay:
+                    type: integer
+                  volumeTransactionsWeek:
+                    type: integer
+                  volumeTransactionsMonth:
+                    type: integer
+                  topTenMerchants:
+                    type: array
+                    items:
+                      type: string
+                  detectedFraudulentIds:
+                    type: array
+                    items:
+                      type: string
+        "400":
+          description: Invalid ID
+          content:
+            application/json:
+              schema:
+                type: string
+        "404":
+          description: Analysis not found
+          content:
+            application/json:
+              schema:
+                type: string
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
