@@ -1,4 +1,4 @@
-import { prisma } from "../../data/postgres/index";
+import { prisma } from "../../data/postgresql/index";
 import { AnalysisData } from "../interfaces/analysis.interface";
 
 export class AnalysisService {

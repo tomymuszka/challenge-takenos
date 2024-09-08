@@ -1,6 +1,6 @@
 import { bcrypt } from "../../config/bcrypt";
 import { JWTAdapter } from "../../config/jwt.adapter";
-import { prisma } from "../../data/postgres";
+import { prisma } from "../../data/postgresql";
 import { User } from "../controllers/auth/user.interface";
 
 export class AuthService {

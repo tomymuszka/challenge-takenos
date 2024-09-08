@@ -1,6 +1,6 @@
 import { createReadStream } from "fs";
 import csvParser from "csv-parser";
-import { prisma } from "../../data/postgres";
+import { prisma } from "../../data/postgresql";
 import { deleteFile } from "../utils/deletefile";
 import { TransactionData } from "../interfaces/transactions.interface";
 import { uuid } from "../../config/uuid";
