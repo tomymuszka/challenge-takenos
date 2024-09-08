@@ -15,21 +15,9 @@ export class TransactionsController {
   ) {}
 
   public createTransaction = async (req: Request, res: Response) => {
-    if (!req.files || !req.files.file || Array.isArray(req.files.file)) {
-      return res.status(400).json({
-        error:
-          "No file uploaded or multiple files under the same field name are not supported.",
-      });
-    }
+    console.log("controlador");
 
-    const file = req.files.file as UploadedFile;
-    const fileExtension = file.mimetype.split("/").at(1) || "";
-
-    if (fileExtension !== "csv") {
-      return res.status(400).json({
-        error: `The extension ${fileExtension} is not valid. Please upload a file in csv.`,
-      });
-    }
+    const file = req.files!.file as UploadedFile;
 
     try {
       const uploadedFileInfo = await this.uploadFileService.uploadSingleFile(

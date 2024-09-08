@@ -5,6 +5,8 @@ import { AnalysisService } from "../../service/analisis.service";
 import { TransactionService } from "../../service/transaction.service";
 import { EmailService } from "../../service/email.service";
 import { SendMail } from "../../utils/sendmail";
+import { validateCSVMiddleware } from "../../middlewares/verify-file-headers";
+import { validateFileMiddleware } from "../../middlewares/verify-file";
 
 export class TransactionsRoutes {
   static get Routes(): Router {
@@ -22,7 +24,12 @@ export class TransactionsRoutes {
       sendMail
     );
 
-    router.post("/", transactions.createTransaction);
+    router.post(
+      "/",
+      validateFileMiddleware,
+      validateCSVMiddleware,
+      transactions.createTransaction
+    );
 
     return router;
   }
